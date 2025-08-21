@@ -6,7 +6,7 @@ import axios from "axios";
 
 function AllBeersPage() {
   // Mock initial state, to be replaced by data from the API. Once you retrieve the list of beers from the Beers API store it in this state variable.
-  const [beers, setBeers] = useState(beersJSON);
+  const [beers, setBeers] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   useEffect(() => {
     getAllBeersData();
@@ -15,7 +15,7 @@ function AllBeersPage() {
   const getAllBeersData = async () => {
     try {
       setIsFetching(true);
-      const response = await axios.get("https://ih-beers-api2.herokuapp.com/beers/");
+      const response = await axios.get("https://ih-beers-api2.herokuapp.com/beers");
       console.log(`Data all beers:`, response);
       setBeers(response.data);
       setIsFetching(false);
@@ -35,7 +35,7 @@ function AllBeersPage() {
   // The logic and the structure for the page showing the list of beers. You can leave this as it is for now.
   return (
     <>
-      <Search />
+      <Search getAllBeersData={getAllBeersData} setBeers={setBeers} />
 
       <div className="d-inline-flex flex-wrap justify-content-center align-items-center w-100 p-4">
         {beers &&
